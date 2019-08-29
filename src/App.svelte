@@ -17,14 +17,14 @@
     if (localStorage.getItem("gasInputs")) {
       gasInputs = JSON.parse(localStorage.getItem("gasInputs"));
       filteredGasInputs = Array.from(gasInputs);
-      console.log(gasInputs);
+      //console.log(gasInputs);
     }
   });
 
   function storeGasInputs(gasInput) {
-    gasInputs = [...gasInputs, gasInput];
+    gasInputs = [ ...gasInputs, gasInput ];
     localStorage.setItem("gasInputs", JSON.stringify(gasInputs));
-    console.log(localStorage.getItem("gasInputs"));
+    //console.log(localStorage.getItem("gasInputs"));
   }
 </script>
 
@@ -50,10 +50,10 @@
     <h1>Hello there!</h1>
 
     <br />
-    <GasInput {gasInput} {storeGasInputs} />
+   <GasInput {gasInput} {storeGasInputs} />
   </div>
   <div class="paper priceList">
-    <PriceList {gasInputs} {filteredGasInputs} />
+    <PriceList {gasInputs} />
   </div>
 
 </div>
