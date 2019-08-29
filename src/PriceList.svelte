@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from "svelte";
+  import { beforeUpdate } from "svelte";
   import filter from "lodash/filter";
   export let gasInputs;
   export let filteredGasInputs;
@@ -17,6 +17,7 @@
       return filter(gasInputs, { type: filterByType });
     }
   }
+  beforeUpdate(() => filterByType(gasTypeFilter));
 </script>
 
 <style>
