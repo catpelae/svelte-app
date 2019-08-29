@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from "svelte";
+  import { beforeUpdate } from "svelte";
   import filter from "lodash/filter";
   export let gasInputs;
   export let filteredGasInputs;
@@ -22,6 +22,7 @@
     orderByCol = event.target.name;
     console.log(orderByCol);
   }
+  beforeUpdate(() => filterByType(gasTypeFilter));
 </script>
 
 <style>
