@@ -2,8 +2,8 @@
   import { onMount } from "svelte";
   import filter from "lodash/filter";
   export let gasInputs;
+  export let filteredGasInputs;
   let gasTypeFilter = "all";
-  let filteredGasInputs = [...gasInputs];
 
   function handleFilterByTypeClick(event) {
     event.preventDefault();
@@ -67,7 +67,7 @@
 </style>
 
 <h2>Price List</h2>
-{#if gasInputs.length !== 0}
+{#if filteredGasInputs.length !== 0}
   <div class="filter-group">
     <button
       name="all"

@@ -11,10 +11,12 @@
     type: ""
   };
   let gasInputs = [];
+  let filteredGasInputs = [];
 
   onMount(() => {
     if (localStorage.getItem("gasInputs")) {
       gasInputs = JSON.parse(localStorage.getItem("gasInputs"));
+      filteredGasInputs = Array.from(gasInputs);
       console.log(gasInputs);
     }
   });
@@ -51,7 +53,7 @@
     <GasInput {gasInput} {storeGasInputs} />
   </div>
   <div class="paper priceList">
-    <PriceList {gasInputs} />
+    <PriceList {gasInputs} {filteredGasInputs} />
   </div>
 
 </div>
