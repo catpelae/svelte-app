@@ -84,6 +84,13 @@
     display: flex;
     align-items: center;
   }
+  .input-group.save {
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .input-group.save :first-child {
+    margin: 0px 8px 0px 0px;
+  }
   input,
   select {
     margin-top: 8px;
@@ -169,12 +176,14 @@
       </select>
     </div>
   </div>
-  <button type="submit">Save</button>
-  {#if valueSaved}
-    <p class="successMessage">Value saved!</p>
-  {/if}
-  {#if invalidValue}
-    <p class="errorMessage">Please write a correct value.</p>
-  {/if}
+  <div class="input-group save">
+    <button type="submit">Save</button>
+    {#if valueSaved}
+      <span class="successMessage message">Value saved!</span>
+    {/if}
+    {#if invalidValue}
+      <span class="errorMessage message">Please write a correct value.</span>
+    {/if}
+  </div>
 
 </form>

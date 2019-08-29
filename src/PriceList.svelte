@@ -4,6 +4,7 @@
   export let gasInputs;
   export let filteredGasInputs;
   let gasTypeFilter = "all";
+  let orderByCol = "price";
 
   function handleFilterByTypeClick(event) {
     event.preventDefault();
@@ -17,6 +18,10 @@
       return filter(gasInputs, { type: filterByType });
     }
   }
+  function handleOrderByCol(event) {
+    orderByCol = event.target.name;
+    console.log(orderByCol);
+  }
 </script>
 
 <style>
@@ -29,8 +34,6 @@
   }
   th {
     border-bottom: 3px solid #bebebe;
-    color: #309b94;
-    font-weight: 400;
     text-align: left;
   }
   table {
@@ -64,6 +67,14 @@
     background-color: #309b94;
     color: white;
   }
+  button[type="link"] {
+    border: none;
+    background-color: white;
+    color: #309b94;
+    font-weight: 400;
+    padding: 0px;
+    text-decoration: underline;
+  }
 </style>
 
 <h2>Price List</h2>
@@ -93,11 +104,34 @@
     <table>
       <thead>
         <tr>
-          <th>Price</th>
-          <th>Gas station brand</th>
-          <th>Neighbourhood</th>
-          <th>Type</th>
-          <th>Time</th>
+          <th>
+            <button type="link" name="price" on:click={handleOrderByCol}>
+              Price
+            </button>
+          </th>
+          <th>
+            <button type="link" name="brand" on:click={handleOrderByCol}>
+              Gas station brand
+            </button>
+          </th>
+          <th>
+            <button
+              type="link"
+              name="neighbourhood"
+              on:click={handleOrderByCol}>
+              Neighbourhood
+            </button>
+          </th>
+          <th>
+            <button type="link" name="type" on:click={handleOrderByCol}>
+              Type
+            </button>
+          </th>
+          <th>
+            <button type="link" name="time" on:click={handleOrderByCol}>
+              Time
+            </button>
+          </th>
         </tr>
       </thead>
       <tbody>
