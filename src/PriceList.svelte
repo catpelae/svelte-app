@@ -2,33 +2,19 @@
   import { beforeUpdate } from "svelte";
   import filter from "lodash/filter";
   export let gasInputs;
-  let filteredGasInputs = [];
   let gasTypeFilter = "all";
   let orderByCol = "price";
+  $: filteredGasInputs = filterByType(gasInputs, gasTypeFilter);
 
-  function handleFilterByTypeClick(event) {
-    event.preventDefault();
-    gasTypeFilter = event.target.name;
-    filteredGasInputs = filterByType(gasInputs, gasTypeFilter);
-  }
-  function filterByType(gasInputs, filterByType) {
-    console.log({filterByType})
-    if (filterByType === "all") {
-      return gasInputs;
-    } else {
-      return filter(gasInputs, { type: filterByType });
-    }
-  }
+  const handleFilterByTypeClick = (event) => gasTypeFilter = event.target.name;
+
+  const filterByType = (gasInputs, filterByType) => (filterByType === "all") ?  gasInputs: filter(gasInputs, { type: filterByType });
+
   function handleOrderByCol(event) {
     orderByCol = event.target.name;
     console.log(orderByCol);
   }
 
-  $: {
-    // https://svelte.dev/docs#3_$_marks_a_statement_as_reactive
-    // the variable to react on needs to be mentioned inside the block
-    filteredGasInputs = filterByType(gasInputs, gasTypeFilter);
-  }
 </script>
 
 <style>
