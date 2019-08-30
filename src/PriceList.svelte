@@ -1,20 +1,32 @@
 <script>
   import { beforeUpdate } from "svelte";
+  import Icon from "fa-svelte";
+  import { faAngleDown } from "@fortawesome/free-solid-svg-icons/faAngleDown";
+  import { faAngleUp } from "@fortawesome/free-solid-svg-icons/faAngleUp";
+
   import filter from "lodash/filter";
+  import orderBy from "lodash/orderBy";
   export let gasInputs;
   let gasTypeFilter = "all";
   let orderByCol = "price";
+  let orderAsc = true;
   $: filteredGasInputs = filterByType(gasInputs, gasTypeFilter);
 
-  const handleFilterByTypeClick = (event) => gasTypeFilter = event.target.name;
+  const handleFilterByTypeClick = event => (gasTypeFilter = event.target.name);
 
-  const filterByType = (gasInputs, filterByType) => (filterByType === "all") ?  gasInputs: filter(gasInputs, { type: filterByType });
+  const filterByType = (gasInputs, filterByType) =>
+    filterByType === "all"
+      ? gasInputs
+      : filter(gasInputs, { type: filterByType });
 
   function handleOrderByCol(event) {
     orderByCol = event.target.name;
-    console.log(orderByCol);
+    orderAsc = !orderAsc;
+    let orderByAscDesc = orderAsc ? "asc" : "desc";
+    console.log({ orderByCol });
+    filteredGasInputs = orderBy(filteredGasInputs, orderByCol, orderByAscDesc);
+    console.log({ orderByAscDesc });
   }
-
 </script>
 
 <style>
@@ -38,6 +50,11 @@
     border-bottom: 1px solid #bebebe;
     height: 34px;
     font-size: 14px;
+  }
+  th div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
   }
 
   th,
@@ -67,6 +84,10 @@
     font-weight: 400;
     padding: 0px;
     text-decoration: underline;
+    margin-bottom: 0px;
+  }
+  :global(.tHeaderIcon) {
+    color: #309b94;
   }
 </style>
 
@@ -100,32 +121,61 @@
       <thead>
         <tr>
           <th>
-            <button type="link" name="price" on:click={handleOrderByCol}>
-              Price
-            </button>
+            <div>
+              <button type="link" name="price" on:click={handleOrderByCol}>
+                Price
+              </button>
+              <Icon class="tHeaderIcon" icon={faAngleDown} />
+              <Icon class="tHeaderIcon" icon={faAngleUp} />
+            </div>
+
           </th>
           <th>
-            <button type="link" name="brand" on:click={handleOrderByCol}>
-              Gas station brand
-            </button>
+            <div>
+              <button type="link" name="station" on:click={handleOrderByCol}>
+                Gas station brand
+              </button>
+              <Icon class="tHeaderIcon" icon={faAngleDown} />
+              <Icon class="tHeaderIcon" icon={faAngleUp} />
+
+            </div>
+
           </th>
           <th>
-            <button
-              type="link"
-              name="neighbourhood"
-              on:click={handleOrderByCol}>
-              Neighbourhood
-            </button>
+            <div>
+              <button
+                type="link"
+                name="neighbourhood"
+                on:click={handleOrderByCol}>
+                Neighbourhood
+              </button>
+              <Icon class="tHeaderIcon" icon={faAngleDown} />
+              <Icon class="tHeaderIcon" icon={faAngleUp} />
+
+            </div>
+
           </th>
           <th>
-            <button type="link" name="type" on:click={handleOrderByCol}>
-              Type
-            </button>
+            <div>
+              <button type="link" name="type" on:click={handleOrderByCol}>
+                Type
+              </button>
+              <Icon class="tHeaderIcon" icon={faAngleDown} />
+              <Icon class="tHeaderIcon" icon={faAngleUp} />
+
+            </div>
+
           </th>
           <th>
-            <button type="link" name="time" on:click={handleOrderByCol}>
-              Time
-            </button>
+            <div>
+              <button type="link" name="timeStamp" on:click={handleOrderByCol}>
+                Time
+              </button>
+              <Icon class="tHeaderIcon" icon={faAngleDown} />
+              <Icon class="tHeaderIcon" icon={faAngleUp} />
+
+            </div>
+
           </th>
         </tr>
       </thead>
