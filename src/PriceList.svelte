@@ -2,27 +2,19 @@
   import { beforeUpdate } from "svelte";
   import filter from "lodash/filter";
   export let gasInputs;
-  export let filteredGasInputs;
   let gasTypeFilter = "all";
   let orderByCol = "price";
+  $: filteredGasInputs = filterByType(gasInputs, gasTypeFilter);
 
-  function handleFilterByTypeClick(event) {
-    event.preventDefault();
-    gasTypeFilter = event.target.name;
-    filteredGasInputs = filterByType(gasTypeFilter);
-  }
-  function filterByType(filterByType) {
-    if (filterByType === "all") {
-      return gasInputs;
-    } else {
-      return filter(gasInputs, { type: filterByType });
-    }
-  }
+  const handleFilterByTypeClick = (event) => gasTypeFilter = event.target.name;
+
+  const filterByType = (gasInputs, filterByType) => (filterByType === "all") ?  gasInputs: filter(gasInputs, { type: filterByType });
+
   function handleOrderByCol(event) {
     orderByCol = event.target.name;
     console.log(orderByCol);
   }
-  beforeUpdate(() => filterByType(gasTypeFilter));
+
 </script>
 
 <style>
@@ -79,7 +71,7 @@
 </style>
 
 <h2>Price List</h2>
-{#if filteredGasInputs.length !== 0}
+{#if gasInputs.length !== 0}
   <div class="filter-group">
     <button
       name="all"
@@ -100,7 +92,9 @@
       Gas 95
     </button>
   </div>
+{/if}
 
+{#if filteredGasInputs.length !== 0}
   <div class="table-wrap">
     <table>
       <thead>
