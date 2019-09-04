@@ -13,19 +13,18 @@
   $: filteredGasInputs = filterByType(gasInputs, gasTypeFilter);
 
   const handleFilterByTypeClick = event => (gasTypeFilter = event.target.name);
-
   const filterByType = (gasInputs, filterByType) =>
     filterByType === "all"
       ? gasInputs
       : filter(gasInputs, { type: filterByType });
 
   function handleOrderByCol(event) {
-    orderByCol = event.target.name;
+    orderByCol = event.currentTarget.name;
     orderAsc = !orderAsc;
     let orderByAscDesc = orderAsc ? "asc" : "desc";
-    console.log({ orderByCol });
+    console.log({ event });
     filteredGasInputs = orderBy(filteredGasInputs, orderByCol, orderByAscDesc);
-    console.log({ orderByAscDesc });
+    console.log({ orderByCol });
   }
 </script>
 
@@ -85,6 +84,8 @@
     padding: 0px;
     text-decoration: underline;
     margin-bottom: 0px;
+    display: flex;
+    align-items: center;
   }
   :global(.tHeaderIcon) {
     color: #309b94;
@@ -124,9 +125,17 @@
             <div>
               <button type="link" name="price" on:click={handleOrderByCol}>
                 Price
+                {#if orderByCol === 'price'}
+                  <div>
+                    {#if orderAsc}
+                      <Icon class="tHeaderIcon" icon={faAngleDown} />
+                    {:else}
+                      <Icon class="tHeaderIcon" icon={faAngleUp} />
+                    {/if}
+                  </div>
+                {/if}
               </button>
-              <Icon class="tHeaderIcon" icon={faAngleDown} />
-              <Icon class="tHeaderIcon" icon={faAngleUp} />
+
             </div>
 
           </th>
@@ -134,9 +143,16 @@
             <div>
               <button type="link" name="station" on:click={handleOrderByCol}>
                 Gas station brand
+                {#if orderByCol === 'station'}
+                  <div>
+                    {#if orderAsc}
+                      <Icon class="tHeaderIcon" icon={faAngleDown} />
+                    {:else}
+                      <Icon class="tHeaderIcon" icon={faAngleUp} />
+                    {/if}
+                  </div>
+                {/if}
               </button>
-              <Icon class="tHeaderIcon" icon={faAngleDown} />
-              <Icon class="tHeaderIcon" icon={faAngleUp} />
 
             </div>
 
@@ -148,9 +164,16 @@
                 name="neighbourhood"
                 on:click={handleOrderByCol}>
                 Neighbourhood
+                {#if orderByCol === 'neighbourhood'}
+                  <div>
+                    {#if orderAsc}
+                      <Icon class="tHeaderIcon" icon={faAngleDown} />
+                    {:else}
+                      <Icon class="tHeaderIcon" icon={faAngleUp} />
+                    {/if}
+                  </div>
+                {/if}
               </button>
-              <Icon class="tHeaderIcon" icon={faAngleDown} />
-              <Icon class="tHeaderIcon" icon={faAngleUp} />
 
             </div>
 
@@ -159,9 +182,16 @@
             <div>
               <button type="link" name="type" on:click={handleOrderByCol}>
                 Type
+                {#if orderByCol === 'type'}
+                  <div>
+                    {#if orderAsc}
+                      <Icon class="tHeaderIcon" icon={faAngleDown} />
+                    {:else}
+                      <Icon class="tHeaderIcon" icon={faAngleUp} />
+                    {/if}
+                  </div>
+                {/if}
               </button>
-              <Icon class="tHeaderIcon" icon={faAngleDown} />
-              <Icon class="tHeaderIcon" icon={faAngleUp} />
 
             </div>
 
@@ -170,10 +200,16 @@
             <div>
               <button type="link" name="timeStamp" on:click={handleOrderByCol}>
                 Time
+                {#if orderByCol === 'timeStamp'}
+                  <div>
+                    {#if orderAsc}
+                      <Icon class="tHeaderIcon" icon={faAngleDown} />
+                    {:else}
+                      <Icon class="tHeaderIcon" icon={faAngleUp} />
+                    {/if}
+                  </div>
+                {/if}
               </button>
-              <Icon class="tHeaderIcon" icon={faAngleDown} />
-              <Icon class="tHeaderIcon" icon={faAngleUp} />
-
             </div>
 
           </th>

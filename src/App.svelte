@@ -12,17 +12,33 @@
   };
   let gasInputs = [];
   let filteredGasInputs = [];
+  let promise = getPriceData();
+
+  async function getPriceData() {
+    const res = await fetch(
+      `https://my.api.mockaroo.com/priceappapi.json?key=3769ad50`
+    );
+    const text = await res.text();
+
+    if (res.ok) {
+      console.log(text);
+      return text;
+    } else {
+      throw new Error(text);
+    }
+  }
 
   onMount(() => {
     if (localStorage.getItem("gasInputs")) {
       gasInputs = JSON.parse(localStorage.getItem("gasInputs"));
       filteredGasInputs = Array.from(gasInputs);
+      promise = getPriceData();
       //console.log(gasInputs);
     }
   });
 
   function storeGasInputs(gasInput) {
-    gasInputs = [ ...gasInputs, gasInput ];
+    gasInputs = [...gasInputs, gasInput];
     localStorage.setItem("gasInputs", JSON.stringify(gasInputs));
     //console.log(localStorage.getItem("gasInputs"));
   }
@@ -50,7 +66,7 @@
     <h1>Hello there!</h1>
 
     <br />
-   <GasInput {gasInput} {storeGasInputs} />
+    <GasInput {gasInput} {storeGasInputs} />
   </div>
   <div class="paper priceList">
     <PriceList {gasInputs} />
